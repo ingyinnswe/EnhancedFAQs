@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Chat from "./Chat";
 
 export default function HomePage() {
     return (
@@ -13,8 +14,9 @@ export default function HomePage() {
               Here, you can check frequently asked questions and find answers to your queries. If you can't find the questions you are looking for, please kindly contact us, rsu.ac.th.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-
-              <a href="./Chat.jsx" className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              {/* <Link to={Chat} className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Chat 
+              </Link> */}
+              <a href="/chat" className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                 Chat here
               </a>
               {/* <a href="#" className="text-sm font-semibold leading-6 text-white">
