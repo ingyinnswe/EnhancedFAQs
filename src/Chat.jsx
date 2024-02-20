@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import './chat.css';
 
 const Chat = () => {
   const instance = axios.create({
@@ -16,46 +17,54 @@ const Chat = () => {
 
   const handleSendMessage = async (message) => {
     setValue("");
-    try {
-      if (!value) {
-        toast.error("Please enter a message", {
-          position: "top-right",
-        });
-      } else {
-        setMessages([...messages, message]);
-        const response = await instance.post("/submit-question", {
-          question: value,
-        });
-        setMessages([...messages, value, response?.data?.msg]);
-      }
-    } catch (error) {
-      console.error(error);
-      console.error("Something went wrong");
-    }
+    setMessages([...messages, message]);
+    // try {
+    //   if (!value) {
+    //     toast.error("Please enter a message", {
+    //       position: "top-right",
+    //     });
+    //   } else {
+    //     setMessages([...messages, message]);
+    //     const response = await instance.post("/submit-question", {
+    //       question: value,
+    //     });
+    //     setMessages([...messages, value, response?.data?.msg]);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   console.error("Something went wrong");
+    // }
   };
 
   return (
-    <div className=" mx-auto max-w-7xl pt-16 sm:px-6  lg:px-8">
+    <div className=" mx-auto  pt-8 sm:px-6 lg:px-8">
       <Toaster />
-      <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-12 text-center shadow-2xl sm:rounded-3xl sm:px-16">
+      <div className="relative isolate overflow-hidden customWidth bg-gray-900 px-6 py-6 text-center shadow-2xl sm:rounded-3xl sm:px-16">
         <img
           className="mx-auto h-56 w-auto"
           src="/public/ric-logo.png"
           alt="RIC LOGO"
           // srcset=""
         />
-        <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Enhanced FAQs for better student support
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-sm  text-gray-300">
-          Here, you can check frequently asked questions and find answers to
-          your queries. If you cannot find the questions you are looking for,
-          please kindly contact us, rsu.ac.th.
-        </p>
+        <div className="infoText ">
+          <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Enhanced FAQs
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-sm  text-gray-300">
+            Here, you can check frequently asked questions and find answers to
+            your queries. If you cannot find the questions you are looking for,
+            please kindly contact us, <a href="mailto:rsuip@rsu.ac.th"><i class="fa fa-anchor" aria-hidden="true">rsuip@rsu.ac.th</i> </a>.
+          </p>
+        </div>
         <div className="chat-box mt-10 ">
           <div className="messages">
             {messages.map((message, index) => (
-              <div key={index} className="message text-right p-2.5 text-black ">
+              <div
+                key={index}
+                className={`message py-2.5 text-black ${
+                  index % 2 === 0 ? "text-right" : "text-left"
+                }`}
+              >
                 <span className="inline-block bg-slate-100 p-2 rounded">
                   {message}
                 </span>
