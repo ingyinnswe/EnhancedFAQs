@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import './chat.css';
+import "./chat.css";
 
 const Chat = () => {
+  const messageContainerRef = useRef(null);
+
   const instance = axios.create({
     baseURL: "http://localhost:4000/api",
     headers: {
@@ -18,39 +20,59 @@ const Chat = () => {
   const handleSendMessage = async (message) => {
     setValue("");
     setMessages([...messages, message]);
-   
   };
-
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
   return (
-    <div className=" mx-auto  pt-8 sm:px-6 lg:px-8">
+    <div className=" mx-auto w-[32rem] ">
       <Toaster />
-      <div className="relative isolate overflow-hidden customWidth bg-gray-900 px-6 py-6 text-center shadow-2xl sm:rounded-3xl sm:px-16">
-        <img
-          className="mx-auto h-56 w-auto"
-          src="/public/ric-logo.png"
-          alt="RIC LOGO"
-          // srcset=""
-        />
-        <div className="infoText ">
-          <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Enhanced FAQs
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-sm  text-gray-300">
-            Here, you can check frequently asked questions and find answers to
-            your queries. If you cannot find the questions you are looking for,
-            please kindly contact us, <a href="mailto:rsuip@rsu.ac.th"><i class="fa fa-anchor" aria-hidden="true">rsuip@rsu.ac.th</i> </a>.
-          </p>
+      <div className="relative isolate overflow-hidden w-full customWidth bg-gray-900  py-6 text-center shadow-2xl rounded-3xl sm:px-16 px-4 ">
+        <div id="infos">
+          <img
+            className="mx-auto h-56 w-auto"
+            src="/public/ric-logo.png"
+            alt="RIC LOGO"
+            // srcset=""
+          />
+          <div className="infoText ">
+            <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Enhanced FAQs
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-sm  text-gray-300">
+              Here, you can check frequently asked questions and find answers to
+              your queries. If you cannot find the questions you are looking
+              for, please kindly contact us,{" "}
+              <a href="mailto:rsuip@rsu.ac.th">
+                <i class="fa fa-anchor" aria-hidden="true">
+                  rsuip@rsu.ac.th
+                </i>{" "}
+              </a>
+              .
+            </p>
+          </div>
         </div>
-        <div className="chat-box mt-10 ">
-          <div className="messages">
+        <div className="h-full">
+          {/* Chat messages */}
+          <div
+            ref={messageContainerRef}
+            className="messages px-4 overflow-y-scroll flex flex-col"
+          >
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`message py-2.5 text-black ${
-                  index % 2 === 0 ? "text-right" : "text-left"
+                className={`message py-2 text-black ${
+                  index % 2 === 0 ? "text-right" : "text-left "
                 }`}
               >
-                <span className="inline-block bg-slate-100 p-2 rounded">
+                <span
+                  className={`inline-block px-2 py-1 text-base rounded-sm  ${
+                    index % 2 === 0 ? "bg-slate-100" : "bg-blue-200"
+                  }`}
+                >
                   {message}
                 </span>
               </div>
