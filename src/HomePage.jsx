@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
 import "./homepage.css";
-// import Chat from "./Chat";
 
 export default function HomePage() {
   const messageContainerRef = useRef(null);
@@ -23,14 +20,7 @@ export default function HomePage() {
   const handleSendMessage = async (message) => {
     setMessages([...messages, { message, sender: "user" }]);
     setValue("");
-    // try {
-    //   const response = await instance.post("/chatbot", {
-    //     message,
-    //   });
-    //   setMessages([...messages, { message: response.data.message, sender: "bot" }]);
-    // } catch (error) {
-    //   toast.error("Failed to send message");
-    // }
+    setShowChat(true);
   };
 
   useEffect(() => {
@@ -59,8 +49,8 @@ export default function HomePage() {
   };
   return (
     <div className="">
-      <div className=" max-w-7xl pt-16 sm:px-6  lg:px-8">
-        <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-12  shadow-2xl sm:rounded-3xl sm:px-16">
+      <div className=" max-w-xl sm:px-6  lg:px-8">
+        <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-12  shadow-2xl rounded-3xl sm:px-16">
           {showChat ? null : (
             <div className={`infoText mx-auto `}>
               <img
@@ -86,34 +76,34 @@ export default function HomePage() {
             </div>
           )}
 
-          <div id="faqs" className="py-4">
+          <div id="faqs" className="py-4 flex flex-row">
             <button
               type="button"
               onClick={() => handleFaqsClick("RSU Inter")}
-              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-indigo-600 rounded-lg hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-purple-600 rounded-lg hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               RSU Inter
             </button>
             <button
               type="button"
               onClick={() => handleFaqsClick("Academic Calendar")}
-              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-indigo-600 rounded-lg hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-purple-600 rounded-lg hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Academic Calendar
             </button>
             <button
               type="button"
               onClick={() => handleFaqsClick("Term Break")}
-              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-indigo-600 rounded-lg hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-purple-600 rounded-lg hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Term Break
             </button>
             <button
               type="button"
               onClick={() => handleFaqsClick("Songkran Holidays")}
-              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-indigo-600 rounded-lg hover:bg-indigo-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-purple-600 rounded-lg hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Songkran Holidays
+              Holidays
             </button>
           </div>
           <div
@@ -131,7 +121,7 @@ export default function HomePage() {
               >
                 <span
                   className={`inline-block px-3 py-2 text-sm rounded-lg  ${
-                    index % 2 === 0 ? "bg-slate-100" : "bg-blue-200"
+                    index % 2 === 0 ? "bg-slate-100" : "bg-purple-200"
                   }`}
                 >
                   {message.message}
@@ -148,7 +138,7 @@ export default function HomePage() {
               Chat here
             </a> */}
             <input
-              className="block w-full rounded-md border-0 px-3 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset bg-slate-200 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm "
+              className="block w-full rounded-md border-0 px-3 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset bg-slate-200 ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-purple-600 sm:text-sm "
               type="text"
               rows={1}
               value={selectedButton}
@@ -181,9 +171,9 @@ export default function HomePage() {
                 viewBox="0 0 24 24"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M8.6 5.2A1 1 0 0 0 7 6v12a1 1 0 0 0 1.6.8l8-6a1 1 0 0 0 0-1.6l-8-6Z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 />
               </svg>
             </button>
