@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import "./homepage.css";
 import toast from "react-hot-toast";
+import parse from 'html-react-parser';
 
 export default function HomePage() {
   const messageContainerRef = useRef(null);
@@ -27,17 +28,23 @@ export default function HomePage() {
       } else {
         const temp = [...messages, { message, sender: "user" }];
         setMessages(temp);
+        console.log({ temp });
 
         // setMessages([...messages, message]);
         const response = await instance.post("/submit-question", {
           question: message,
         });
         console.log({ response });
-        const tempArr = [
-          ...messages,
+        // Wait for the response before updating the messages state again
+        setMessages((prevMessages) => [
+          ...prevMessages,
           { message: response?.data?.msg, sender: "model" },
-        ];
-        setMessages(tempArr);
+        ]);
+      //   const tempArr = [
+      //     ...messages,
+      //     { message: response?.data?.msg, sender: "model" },
+      //   ];
+      //   setMessages(tempArr);
       }
     } catch (error) {
       console.error(error);
@@ -53,10 +60,7 @@ export default function HomePage() {
     }
   }, [messages]);
 
-  const handleButtonClick = (buttonText) => {
-    setSelectedButton(buttonText);
-  };
-
+ 
   const handleFaqsClick = (buttonText) => {
     setShowChat(true);
     setSelectedButton(buttonText);
@@ -67,7 +71,7 @@ export default function HomePage() {
       setValue(buttonText);
     }
     if (String(value).trim() !== "") {
-      setMessages([{ message: String(value).trim(), sender: "user" }]);
+      setMessages([ ...messages,{ message: String(value).trim(), sender: "user" }]);
     }
   };
   return (
@@ -147,7 +151,7 @@ export default function HomePage() {
                     index % 2 === 0 ? "bg-slate-100" : "bg-purple-200"
                   }`}
                 >
-                  {message.message}
+                  {parse(message.message)}
                 </span>
               </div>
             ))}
