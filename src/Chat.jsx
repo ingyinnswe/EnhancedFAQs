@@ -19,7 +19,23 @@ const Chat = () => {
 
   const handleSendMessage = async (message) => {
     setValue("");
-    setMessages([...messages, message]);
+    try {
+      if (!value) {
+        toast.error("Please enter a message", {
+          position: "top-right",
+        });
+      } else {
+        setMessages([...messages, message]);
+        const response = await instance.post("/submit-question", {
+          question: value,
+        });
+        setMessages([...messages, value, response?.data?.msg]);
+      }
+    } catch (error) {
+      console.error(error);
+      console.error("Something went wrong");
+    }
+    // setMessages([...messages, message]);
   };
   useEffect(() => {
     if (messageContainerRef.current) {

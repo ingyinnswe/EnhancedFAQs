@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import "./homepage.css";
+import toast from "react-hot-toast";
 
 export default function HomePage() {
   const messageContainerRef = useRef(null);
@@ -18,8 +19,30 @@ export default function HomePage() {
   });
 
   const handleSendMessage = async (message) => {
-    setMessages([...messages, { message, sender: "user" }]);
-    setValue("");
+    try {
+      if (!message) {
+        toast.error("Please enter a message", {
+          position: "top-right",
+        });
+      } else {
+        const temp = [...messages, { message, sender: "user" }];
+        setMessages(temp);
+
+        // setMessages([...messages, message]);
+        const response = await instance.post("/submit-question", {
+          question: message,
+        });
+        console.log({ response });
+        const tempArr = [
+          ...messages,
+          { message: response?.data?.msg, sender: "model" },
+        ];
+        setMessages(tempArr);
+      }
+    } catch (error) {
+      console.error(error);
+      console.error("Something went wrong");
+    }
     setShowChat(true);
   };
 
