@@ -49,7 +49,7 @@ export default function HomePage() {
   };
   return (
     <div className="">
-      <div className=" max-w-xl sm:px-6  lg:px-8">
+      <div className="max-w-xl sm:px-6 lg:px-8">
         <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-12  shadow-2xl rounded-3xl sm:px-16">
           {showChat ? null : (
             <div className={`infoText mx-auto `}>
@@ -79,10 +79,10 @@ export default function HomePage() {
           <div id="faqs" className="py-4 flex flex-row">
             <button
               type="button"
-              onClick={() => handleFaqsClick("RSU Inter")}
+              onClick={() => handleFaqsClick("admission requirements")}
               className="px-3 py-2 mx-1 text-xs font-medium text-center text-slate-100 bg-purple-600 rounded-lg hover:bg-purple-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              RSU Inter
+              Admission
             </button>
             <button
               type="button"
